@@ -2,13 +2,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export default {
-  development: {
-    name: 'erangadb',
-    host: process.env.DB_SERVER,
+module.exports = {
+  "development": {
+    database: 'erangadb',
+    password: 'danny123',
+    dialect: "postgres",
     username: 'dannybenshi',
-    password: process.env.DB_PASSWORD,
-    dialect: "postgres"
+    dialect: 'postgres', host: '127.0.0.1', port: 5432
   },
   "production": {
     connectionString: '',

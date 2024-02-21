@@ -1,12 +1,10 @@
 {
-  "type": "module",
   "name": "e-ranga-hub",
   "version": "1.0.0",
   "description": "A platform that helps citizens to find lost documents",
   "main": "index.js",
-  
   "scripts": {
-    "start": "nodemon ./src/app.js"
+    "start": "nodemon --exec babel-node ./src/app.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +24,9 @@
     "sequelize": "^6.37.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/node": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
