@@ -8,7 +8,8 @@ module.exports = {
     password: 'danny123',
     dialect: "postgres",
     username: 'dannybenshi',
-    dialect: 'postgres', host: '127.0.0.1', port: 5432
+    dialect: 'postgres', host: '127.0.0.1', port: 5432,
+    logging: true,
   },
   "production": {
     connectionString: '',

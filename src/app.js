@@ -1,17 +1,15 @@
 import express from "express";
-import { Sequelize } from 'sequelize';
 import dbConfig from './db/config/config.js';
-import db from './db/models/index.js';
+import db from './db/models/index';
+import api from './routers';
 const app = express();
 const PORT = process.env.PORT || 4000;
 const env = process.env.NODE_ENV || 'development';
 
-app.use(express.json());
-const sequelize = new Sequelize(dbConfig[env]);
+app.use(express.json())
+   .use('/', api);
+
 const { sequelize: dbCon } = db;
-app.get('/', (req, res) => {
-    res.json({'message':'Welcome to eranga hub!'});
-});
 
 
 app.listen(PORT, () => {
