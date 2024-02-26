@@ -1,7 +1,5 @@
-import 'regenerator-runtime';
 import express from 'express';
 import User from './_user';
-
 
 const api = express();
 

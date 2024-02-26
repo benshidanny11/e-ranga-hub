@@ -1,4 +1,3 @@
-import 'regenerator-runtime';
 import Joi from '@hapi/joi';
 
 const schemas = {};
@@ -14,7 +13,6 @@ const password = Joi.string()
   .required()
   .label('Password is required,  it must have at least 8 letters');
 
-
 const name = Joi.string()
   .min(3)
   .required()
@@ -24,7 +22,7 @@ const phonenumber = Joi.string()
   .required()
   .label('Phone is required,  it must have at least 10 digits');
 
-  const role = Joi.string()
+const role = Joi.string()
   .min(2)
   .required()
   .label('Role is required,  it must have at least 2 characters');
@@ -37,8 +35,8 @@ schemas.login = Joi.object().keys({
 schemas.createuser = Joi.object().keys({
   email,
   role,
-  firstname:name,
-  lastname:name,
+  firstname: name,
+  lastname: name,
   phonenumber,
 });
 
@@ -46,6 +44,5 @@ schemas.updateuser = Joi.object().keys({
   email,
   role,
 });
-
 
 export default schemas;

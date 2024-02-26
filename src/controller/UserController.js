@@ -1,48 +1,51 @@
+/* eslint-disable consistent-return */
 /* eslint-disable max-len */
 /* eslint-disable prefer-const */
 /* eslint-disable camelcase */
 /* eslint-disable prefer-destructuring */
-import 'regenerator-runtime';
-import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import dotenv from 'dotenv';
 import { STATUSES } from '../constants/ResponseStatuses';
-const { Op } = require('sequelize');
 
 import {
   generatePassword,
-  generateAccessToken
+  generateAccessToken,
+  sendSms,
 } from '../helpers';
-
 
 import {
   User,
 } from '../db/models';
 import { MESSAGES } from '../constants/ResponceMessages';
-//import { serverConfig } from '../config';
+
+const { Op } = require('sequelize');
+// import { serverConfig } from '../config';
 
 dotenv.config();
 
 const UserController = {
   login: async (req, res) => {
     const {
-      user: { id, email, role, phonenumber },
+      user: {
+        id, email, role, phonenumber,
+      },
     } = req;
-    const userData = { id, email, role, phonenumber };
+    const userData = {
+      id, email, role, phonenumber,
+    };
     const accesstoken = await generateAccessToken(userData);
 
     res.json({ accesstoken, userData });
   },
 
-
   createUser: async (req, res) => {
-    const { authUser, body } = req;
-    const password = generatePassword();
+    const { body } = req;
+    const password = generatePassword().encriptedPasword;
     const userObject = {
       id: uuid(),
       email: body.email,
       phonenumber: body.phonenumber,
-      password: password,
+      password,
       firstname: body.firstname,
       lastname: body.lastname,
       role: body.role,
@@ -50,15 +53,16 @@ const UserController = {
     let newUser = await User.create(userObject);
     newUser = newUser?.dataValues;
     if (!newUser) return res.sendStatus(500);
-
+    await sendSms({
+      receiver: body.phonenumber,
+      sender: 'E-RANGA',
+      body: `Hello ${body.lastname}! Your credentials are Username: ${body.phonenumber}, Password: ${generatePassword().plainPassword}`,
+    });
     res.status(STATUSES.CREATED).json({ status: STATUSES.CREATED, message: MESSAGES.CREATED });
   },
 
   findAll: async (req, res) => {
-    const { paginate } = req;
     const { email: emailCurrentUser } = req.authUser;
-    const limit = paginate?.limit;
-    const offset = paginate?.offset;
     const users = await User.findAll({
       attributes: [
         'id',
@@ -72,12 +76,10 @@ const UserController = {
       ],
       where: {
         email: {
-          [Op.ne]: emailCurrentUser
-        }
-      }
-    },
-
-    );
+          [Op.ne]: emailCurrentUser,
+        },
+      },
+    });
     res.status(200).json({
       users,
     });
@@ -120,7 +122,6 @@ const UserController = {
       return res.status(STATUSES.BAD_REQUEST).send({ status: STATUSES.BAD_REQUEST, message: MESSAGES.NOT_UPDATED });
     }
     return res.status(STATUSES.OK).send({ status: STATUSES.OK, message: MESSAGES.UPDATED });
-
   },
   deleteUser: async (req, res) => {
     const { id } = req.params;
@@ -130,7 +131,6 @@ const UserController = {
     }
     await user.destroy();
     return res.status(STATUSES.OK).send({ status: STATUSES.OK, message: MESSAGES.DELETED });
-
   },
 
 };

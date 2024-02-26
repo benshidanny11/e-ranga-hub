@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 /* eslint-disable prefer-destructuring */
-import 'regenerator-runtime';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import { decodeToken, getErrorMessage, decodeJWT } from '../helpers';

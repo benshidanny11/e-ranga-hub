@@ -11,5 +11,5 @@ export const generatePassword = (autoGen = true, pass = null) => {
     })
     : pass;
   console.log(`generated password ${passN}`);
-  return bcrypt.hashSync(passN, 10);
+  return {plainPassword: passN, encriptedPasword: bcrypt.hashSync(passN, 10)};
 };

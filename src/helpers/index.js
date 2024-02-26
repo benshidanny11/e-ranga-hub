@@ -1,6 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-import 'regenerator-runtime';
-
 
 import { generatePassword } from './_password.helper';
 import { getErrorMessage } from './_errorHandler.helper';
@@ -10,11 +8,13 @@ import {
   generateAccessToken,
 } from './_auth.helper';
 
+import { sendSms } from './_sendSMS';
 
 export {
   decodeToken,
   generatePassword,
   generateAccessToken,
   getErrorMessage,
-  decodeJWT
+  decodeJWT,
+  sendSms,
 };
