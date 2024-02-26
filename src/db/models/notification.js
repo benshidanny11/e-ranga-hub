@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Notification.init({
-    id:DataTypes.INTEGER,
     documentid: DataTypes.STRING,
     phonenumber: DataTypes.STRING,
     message: DataTypes.STRING

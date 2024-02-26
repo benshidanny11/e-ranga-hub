@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Payment.init({
-    id:DataTypes.INTEGER,
     documentid: DataTypes.STRING,
     refid: DataTypes.STRING,
     status: DataTypes.STRING,

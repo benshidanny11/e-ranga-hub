@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Station.init({
-    id: DataTypes.STRING,
     province: DataTypes.STRING,
     district: DataTypes.STRING,
     sector: DataTypes.STRING,
