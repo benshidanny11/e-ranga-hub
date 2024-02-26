@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/prefer-default-export */
 import 'regenerator-runtime';
+
 import bcrypt from 'bcrypt';
 import { generate } from 'generate-password';
 
@@ -11,5 +13,5 @@ export const generatePassword = (autoGen = true, pass = null) => {
     })
     : pass;
   console.log(`generated password ${passN}`);
-  return {plainPassword: passN, encriptedPasword: bcrypt.hashSync(passN, 10)};
+  return { plainPassword: passN, encriptedPasword: bcrypt.hashSync(passN, 10) };
 };

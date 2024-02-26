@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 import dotenv from 'dotenv';
 
 dotenv.config();

@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 /* eslint-disable prefer-destructuring */
 import dotenv from 'dotenv';
@@ -56,9 +58,9 @@ const Auth = {
       next();
     });
   },
-  
+
   checkCredentials: async (req, res, next) => {
-    const { user, body: { password }, } = req;
+    const { user, body: { password } } = req;
     const isCorrectPassword = bcrypt.compareSync(password, user.password);
     if (!isCorrectPassword) {
       return res.status(401).send({
