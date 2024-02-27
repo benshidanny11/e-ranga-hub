@@ -1,4 +1,3 @@
-'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -6,37 +5,41 @@ module.exports = {
       id: {
         type: Sequelize.STRING,
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
       },
       province: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       district: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       sector: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       cell: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+      },
+      village: {
+        type: Sequelize.STRING,
       },
       belonginginstitution: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       contacts: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Stations');
-  }
+  },
 };

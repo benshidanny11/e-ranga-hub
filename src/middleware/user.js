@@ -1,16 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
-import 'regenerator-runtime';
+
 import { MESSAGES } from '../constants/ResponceMessages';
 import { STATUSES } from '../constants/ResponseStatuses';
-import { User }  from '../db/models';
-const { Op } = require('sequelize');
+import { User } from '../db/models';
 import { getErrorMessage } from '../helpers';
+
+const { Op } = require('sequelize');
 
 export default {
   // Supper user
-  
+
   checkISAdmin: async (req, res, next) => {
     const user = req.authUser || req.user;
     if (user?.role === 'SUPPER_ADMIN') {
@@ -18,7 +19,7 @@ export default {
     } else {
       res.status(STATUSES.UNAUTHORIZED).send({
         status: STATUSES.UNAUTHORIZED,
-        error: getErrorMessage( MESSAGES.UNAUTHORIZED),
+        error: getErrorMessage(MESSAGES.UNAUTHORIZED),
       });
     }
   },
@@ -34,13 +35,11 @@ export default {
     }
   },
 
-
   checkUserExists: async (req, res, next) => {
-   const { phonenumber } = req.body;
-   
+    const { phonenumber } = req.body;
+
     try {
-      let user = await User.findOne({ where: { phonenumber }
-     } );
+      let user = await User.findOne({ where: { phonenumber } });
       user = user?.dataValues;
       if (user) {
         req.user = user;
@@ -48,7 +47,7 @@ export default {
       } else {
         res.status(STATUSES.BAD_REQUEST).send({
           status: STATUSES.BAD_REQUEST,
-          error: getErrorMessage( 'Phonenumber not exist'),
+          error: getErrorMessage('Phonenumber not exist'),
         });
       }
     } catch (error) {
@@ -58,25 +57,27 @@ export default {
 
   checkDuplicatesExists: async (req, res, next) => {
     const { phonenumber, email } = req.body;
-    
-     try {
-       let user = await User.findOne({ where: {  [Op.or]: [
-        { phonenumber },
-        { email }
-      ]}
-      } );
-       user = user?.dataValues;
-       if (user) {
+
+    try {
+      let user = await User.findOne({
+        where: {
+          [Op.or]: [
+            { phonenumber },
+            { email },
+          ],
+        },
+      });
+      user = user?.dataValues;
+      if (user) {
         res.status(STATUSES.BAD_REQUEST).send({
           status: STATUSES.BAD_REQUEST,
           error: getErrorMessage('User already exists'),
         });
-         
-       } else {
+      } else {
         next();
-       }
-     } catch (error) {
-       console.log(error);
-     }
-   },
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

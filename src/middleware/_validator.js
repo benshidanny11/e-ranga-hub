@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable linebreak-style */
 import 'regenerator-runtime';
 import _ from 'lodash';
