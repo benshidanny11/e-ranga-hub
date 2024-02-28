@@ -101,7 +101,7 @@ const UserController = {
         'createdAt',
       ],
     });
-    user = user.dataValues;
+    user = user.dataValues ? user.dataValues : null;
     if (!user) return res.sendStatus(204);
     res.json({
       user,

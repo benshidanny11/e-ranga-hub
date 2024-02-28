@@ -27,6 +27,36 @@ const role = Joi.string()
   .required()
   .label('Role is required,  it must have at least 2 characters');
 
+const province = Joi.string()
+  .min(3)
+  .required()
+  .label('Province is required');
+
+const district = Joi.string()
+  .min(3)
+  .required()
+  .label('District is required');
+
+const sector = Joi.string()
+  .min(3)
+  .required()
+  .label('Sector is required');
+
+const cell = Joi.string()
+  .min(3)
+  .required()
+  .label('Cell is required');
+
+const village = Joi.string()
+  .min(3)
+  .required()
+  .label('Province is required');
+
+const stationname = Joi.string()
+  .min(3)
+  .required()
+  .label('Station name is required');
+
 schemas.login = Joi.object().keys({
   phonenumber,
   password,
@@ -40,9 +70,14 @@ schemas.createuser = Joi.object().keys({
   phonenumber,
 });
 
-schemas.updateuser = Joi.object().keys({
-  email,
-  role,
+schemas.createstation = Joi.object().keys({
+  province,
+  district,
+  sector,
+  cell,
+  village,
+  stationname,
+  phonenumber,
 });
 
 export default schemas;
